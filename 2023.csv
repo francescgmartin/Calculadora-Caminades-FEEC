@@ -1,25 +1,30 @@
-PUNTS_REQUERITS;255
+PUNTS_REQUERITS;261
 Data;Caminada;Km;Desnivell;Punts
-23/02/2024;Rubi Montserrat;46;4200;19
-02/02/2024;Castells sagarra;54;1200;14
-09/03/2024;Marxa del Setge de Cardona;52;4600;21
-30/03/2024;3 monestirs;54;3883;19
-06/04/2024;Travessa Molins/montserrat;49;4414;19
-12/04/2024;Almogaver prades;59;4912;22
-12/01/1900;Caminada Carenes;52;4696;21
-26/04/2024;Ruta de les Ermites;46;3100;17
-27/04/2020;Caminada Riudoms la mola;52;3422;19
-04/05/2024;7 cims;53;4370;20
-10/05/2024;La Romànica;79;5000;27
-18/05/2026;Travessa Montseny;48;5000;20
-24/05/2024;Barcelona - Montserrat;63;4439;23
-01/06/2026;Reus Prades Reus;54;2960;17
-07/06/2024;Transfronterera;49;5000;21
-13/09/2024;Matagalls Montserrat;83;5773;30
-20/09/2024;TransMontserrat;48;4860;20
-27/09/2024;Rasos Manresa;80;4060;27
-04/10/2024;Trenkakames;55;1500;18
-11/10/2024;La Mola Santa;51;3220;18
-12/10/2024;La Llopa;54;5420;21
-18/10/2024;La Marxassa;67;4470;23
-09/11/2024;Marxa del Garraf;46;2800;16
+05/03/2023;23a Marxa dels Castells de la Segarra;54,0;1.200;14
+05/03/2023;11a travessa Rubí-Montserrat (memorial Pau Sanche Rico);46,0;4.200;19
+12/03/2023;8a Marxa del Setge de Cardona;52,0;4.574;21
+19/03/2023;5a Marxa Borges Riu Set;56,5;3.322;19
+19/03/2023;2a Marxa de Les Comes;46,0;2.500;15
+26/03/2023;20a Travessa Molins a Montserrat;49,2;4.414;19
+26/03/2023;18a Ruta dels Tres Monestirs - llarga;53,0;3.755;19
+26/03/2023;18a Ruta dels Tres Monestirs - curta;48,0;2.654;16
+01/04/2023;12a Almogàver;55,5;4.120;21
+16/04/2023;13a Ruta de les Ermites;47,0;3.100;17
+22/04/2023;13a Caminada de Carenes - Marxa el Pont de Suert a Tremp;50,0;5.262;21
+30/04/2023;20a Caminada Riudoms-La Mola-Riudoms;56,77;3.422;19
+06/05/2023;12a Sants Montserrat;63,0;3.843;22
+07/05/2023;19a Marxa de Resistència 7 Cims;59,2;4.824;22
+13/05/2023;34a Marxa La Romànica;83,5;5.600;30
+14/05/2023;7a Marxa Mèdium;48,0;2.424;15
+20/05/2023;4t Marxa de Colldejou;48,0;4.830;20
+27/05/2023;34a Marxa Gràcia-Montserrat;62,6;4.668;24
+04/06/2023;26a Caminada Reus-Prades-Reus;54,8;2.950;17
+11/06/2023;47a Travessa del Montseny;48,0;5.000;20
+17/06/2023;16a Transfronterera del Cap del Rec;49,0;5.020;21
+16/09/2023;44a Travessa Matagalls-Montserrat;83,4;5.773;30
+30/09/2023;31 Marxa Rasos Manresa;78,5;3.989;25
+07/10/2023;21a TRENKAKAMES;55,0;3.400;18
+15/10/2023;9a Marxa de resistència La Llopa per Calella i el Montnegre;54,0;4.520;21
+21/10/2023;8a Marxa de resistencia La Mola - Santa;50,0;3.219;17
+28/10/2023;29a La Marxassa;66,0;4.032;23
+05/11/2023;28a Marxa del Garraf;46,0;3.300;17
