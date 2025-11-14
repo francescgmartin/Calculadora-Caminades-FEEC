@@ -1,4 +1,4 @@
-const anysDisponibles = [ 2023, 2024, 2025];
+const anysDisponibles = [ 2023, 2024, 2025 ];
 
 function generaBotonsAnys(selectedAny = anysDisponibles[anysDisponibles.length - 1]) {
     const selector = document.querySelector('.year-selector');
@@ -29,8 +29,21 @@ async function loadYear(any) {
 
     let totalPunts = 0, totalKm = 0, totalDesnivell = 0;
 
-    // Element dels punts per modificar fàcilment
     const puntsSpan = document.getElementById('punts');
+    const summary = document.getElementById('summary');
+    const assolitText = document.getElementById('assolit-text');
+
+    // Utilitat per refrescar el resum (manté sempre el número)
+    function updateSummary() {
+        puntsSpan.textContent = totalPunts;
+        if (totalPunts >= requerits) {
+            summary.classList.add('success');
+            assolitText.classList.remove('ocult');
+        } else {
+            summary.classList.remove('success');
+            assolitText.classList.add('ocult');
+        }
+    }
 
     lines.slice(2).forEach(line => {
         const [data, nom, kms, desnivell, punts] = line.split(';');
@@ -56,14 +69,8 @@ async function loadYear(any) {
             document.getElementById('kms').textContent = totalKm;
             document.getElementById('desnivell').textContent = totalDesnivell;
 
-            // Assoliment de punts mínims
-            if (totalPunts >= requerits) {
-                puntsSpan.textContent = 'ASSOLIT';
-                puntsSpan.classList.add('punts-assolit');
-            } else {
-                puntsSpan.textContent = totalPunts;
-                puntsSpan.classList.remove('punts-assolit');
-            }
+            // Actualitza estat visual del resum (no perdem el número)
+            updateSummary();
 
             // Sincronitza la classe visual de la fila
             syncRowSelectedClass(tr);
@@ -76,11 +83,15 @@ async function loadYear(any) {
         tbody.appendChild(tr);
     });
 
-    // Inicialitza estat (per si tot està desmarcat)
-    puntsSpan.textContent = 0;
-    puntsSpan.classList.remove('punts-assolit');
+    // Estat inicial net
+    totalPunts = 0;
+    totalKm = 0;
+    totalDesnivell = 0;
+    document.getElementById('kms').textContent = totalKm;
+    document.getElementById('desnivell').textContent = totalDesnivell;
+    updateSummary();
 
-    // >>> NOVETAT: sincronitza l'estat visual de totes les files
+    // Sincronitza estat visual de totes les files
     initRowSelectionState();
 }
 
@@ -93,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Delegació de clics
   tableBody.addEventListener('click', (e) => {
-    // Si cliques directament el checkbox, deixa el comportament normal
+    // Si cliques directament el checkbox, respecta el comportament estàndard
     if (e.target && e.target.closest('input[type="checkbox"]')) {
       const tr = e.target.closest('tr');
       syncRowSelectedClass(tr);
@@ -106,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkbox = tr.querySelector('input[type="checkbox"]');
     if (!checkbox) return;
 
-    // Toggle manual + dispara 'change' per reutilitzar la teva lògica
+    // Toggle manual + dispara 'change' per reutilitzar la lògica
     checkbox.checked = !checkbox.checked;
     checkbox.dispatchEvent(new Event('change', { bubbles: true }));
   });
@@ -140,4 +151,3 @@ function initRowSelectionState() {
 
 // Genera els botons i carrega l'any més recent per defecte
 generaBotonsAnys();
-loadYear(anysDisponibles[anysDisponibles.length - 1]);
