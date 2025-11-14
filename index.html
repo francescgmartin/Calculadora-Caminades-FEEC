@@ -6,13 +6,233 @@
     <title>Calculadora de punts de les Caminades de Resistència FEEC</title>
 
 <style>
-/* (kept your existing CSS unchanged) */
+
 body {
     font-family: 'Montserrat', Arial, sans-serif;
     background: #fff;
     margin: 0;
     padding: 0;
 }
+
+input[type="checkbox"] {
+    transform: scale(calc(1 + (100vw / 1920)));
+}
+
+.container {
+    max-width: 1100px;
+    margin: 60px auto 60px auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 36px rgba(200,16,46,0.10);
+    padding: 56px 48px 48px 48px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 36px;
+}
+
+header img {
+    height: 90px;
+    width: auto;
+    display: block;
+}
+
+header h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.year-selector {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 36px;
+    margin-top: 18px;
+    justify-content: flex-start;
+}
+
+.year-selector button {
+    margin: 0;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 10px;
+    background: #fbe6e9;
+    color: #c8102e;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 6px rgba(200,16,46,0.09);
+    outline: none;
+}
+.year-selector button.active,
+.year-selector button:hover {
+    background: #c8102e;
+    color: #fff;
+    border: 2px solid #c8102e;
+    box-shadow: 0 2px 12px rgba(200,16,46,0.15);
+}
+
+/* TAULA */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 36px;
+    margin-bottom: 24px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(200,16,46,0.08);
+    font-size: 1.08rem;
+}
+
+th, td {
+    padding: 16px 14px;
+}
+
+th {
+    background: #c8102e;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.10rem;
+    border-bottom: 2px solid #fbe6e9;
+}
+
+td {
+    color: #222;
+    background: #fff;
+    vertical-align: middle;
+    border-bottom: 1px solid #fbe6e9;
+}
+
+td:nth-child(1), td:nth-child(3), td:nth-child(4), td:nth-child(5) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+td:nth-child(2) {
+    text-align: left;
+    width: 30%;
+}
+
+td:last-child, th:last-child {
+    text-align: center;
+    width: 80px;
+}
+
+table thead tr {
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* === Files clicables, hover i seleccionades === */
+#caminades-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    user-select: none;
+}
+
+/* Alternança de files en gris suau (quan no estan seleccionades) */
+#caminades-table tbody tr:nth-child(even):not(.selected) td {
+    background-color: #f7f7f7; /* gris molt clar */
+}
+
+/* Hover (quan no està seleccionada) */
+#caminades-table tbody tr:hover td {
+    background-color: #f0f0f0; /* gris lleuger de hover */
+}
+
+/* Estat seleccionat (checkbox marcat) en rosat per destacar */
+#caminades-table tbody tr.selected td {
+    background-color: #ffe8ed;
+    box-shadow: inset 0 0 0 2px rgba(200,16,46,0.18);
+}
+
+/* SUMMARY */
+.summary {
+    margin-top: 44px;
+    margin-bottom: 20px;
+    font-size: 1.14rem;
+    color: #c8102e;
+    background: #fbe6e9;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(200,16,46,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 44px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.summary p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Estat 'success' quan assolim l'objectiu */
+.summary.success {
+    background: #e6f4ea; /* verd molt suau */
+    box-shadow: 0 2px 10px rgba(46, 125, 50, 0.12);
+    border: 1px solid #c8e6c9;
+    color: #1b5e20; /* verd fosc per al text principal del resum */
+}
+
+/* Text d'assoliment (més descriptiu) */
+.assolit-text {
+  color: #1b5e20;
+  font-weight: 700;
+  margin: 0;
+}
+.ocult { display: none; }
+
+/* ELEMENTS EXTRA */
+.mountain-bar {
+    margin-top: 36px;
+    height: 120px;
+    background: url('img/muntanya.svg') no-repeat center;
+    background-size: contain;
+    position: relative;
+}
+
+.excursionista {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    transition: left 0.5s;
+}
+
+.punts-assolit {
+    font-weight: bold;
+    color: #2e7d32;
+    background: #e0f3e0;
+    border-radius: 8px;
+    padding: 2px 12px;
+    font-size: 1.18em;
+    letter-spacing: 1px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .container { padding: 12px; margin: 12px; }
+    header h1 { font-size: 1.2rem; }
+    .year-selector button { padding: 8px 12px; font-size: 0.9rem; }
+    th, td { font-size: 0.9rem; padding: 8px 4px; }
+    .summary { flex-direction: column; gap: 12px; padding: 12px; }
+}
+
 
 input[type="checkbox"] {
     transform: scale(calc(1 + (100vw / 1920)));
