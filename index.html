@@ -15,6 +15,34 @@ body {
 }
 
 
+/* Fila clicable amb transicions suaus */
+#caminades-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    user-select: none; /* opcional: evita seleccionar text en fer clic repetits */
+}
+
+/* Efecte hover coherent amb la paleta */
+#caminades-table tbody tr:hover td {
+    background-color: #fdeff2; /* rosat lleuger */
+}
+
+/* Estat seleccionat (checkbox marcat) */
+#caminades-table tbody tr.selected td {
+    background-color: #ffe8ed;
+    box-shadow: inset 0 0 0 2px rgba(200,16,46,0.18);
+}
+
+/* Manté l’alternança en files no seleccionades */
+#caminades-table tbody tr:nth-child(even):not(.selected) td {
+    background: #fbe6e9;
+}
+
+/* Opcional: mantenim el cursor del checkbox */
+#caminades-table input[type="checkbox"] {
+    cursor: pointer;
+}
+
 input[type="checkbox"] {
     transform: scale(calc(1 + (100vw / 1920)));
 }
