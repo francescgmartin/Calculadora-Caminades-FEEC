@@ -35,10 +35,14 @@ async function loadYear(any) {
     lines.slice(2).forEach(line => {
         const [data, nom, kms, desnivell, punts] = line.split(';');
         const tr = document.createElement('tr');
+        tr.setAttribute('tabindex', '0'); // accessibilitat opcional
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+
+        // Quan el checkbox canvia, actualitzem totals i estils
         checkbox.addEventListener('change', () => {
-            if(checkbox.checked) {
+            if (checkbox.checked) {
                 totalPunts += parseInt(punts);
                 totalKm += parseInt(kms);
                 totalDesnivell += parseInt(desnivell);
@@ -60,6 +64,9 @@ async function loadYear(any) {
                 puntsSpan.textContent = totalPunts;
                 puntsSpan.classList.remove('punts-assolit');
             }
+
+            // Sincronitza la classe visual de la fila
+            syncRowSelectedClass(tr);
         });
 
         tr.innerHTML = `<td>${data}</td><td>${nom}</td><td>${kms}</td><td>${desnivell}</td><td>${punts}</td>`;
@@ -70,8 +77,65 @@ async function loadYear(any) {
     });
 
     // Inicialitza estat (per si tot està desmarcat)
-    puntsSpan.textContent = totalPunts;
+    puntsSpan.textContent = 0;
     puntsSpan.classList.remove('punts-assolit');
+
+    // >>> NOVETAT: sincronitza l'estat visual de totes les files
+    initRowSelectionState();
+}
+
+/* =========================
+   Selecció per clic a la fila
+   ========================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const tableBody = document.querySelector('#caminades-table tbody');
+  if (!tableBody) return;
+
+  // Delegació de clics
+  tableBody.addEventListener('click', (e) => {
+    // Si cliques directament el checkbox, deixa el comportament normal
+    if (e.target && e.target.closest('input[type="checkbox"]')) {
+      const tr = e.target.closest('tr');
+      syncRowSelectedClass(tr);
+      return;
+    }
+
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+
+    const checkbox = tr.querySelector('input[type="checkbox"]');
+    if (!checkbox) return;
+
+    // Toggle manual + dispara 'change' per reutilitzar la teva lògica
+    checkbox.checked = !checkbox.checked;
+    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+
+  // Accessibilitat opcional: espai/enter fan toggle
+  tableBody.addEventListener('keydown', (e) => {
+    if (!(e.key === ' ' || e.key === 'Enter')) return;
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+    const checkbox = tr.querySelector('input[type="checkbox"]');
+    if (!checkbox) return;
+    e.preventDefault();
+    checkbox.checked = !checkbox.checked;
+    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+});
+
+// Afegeix/treu la classe 'selected' segons l'estat del checkbox
+function syncRowSelectedClass(tr) {
+  const checkbox = tr?.querySelector('input[type="checkbox"]');
+  if (!checkbox) return;
+  tr.classList.toggle('selected', checkbox.checked);
+}
+
+// Recorre totes les files i ajusta la classe 'selected'
+function initRowSelectionState() {
+  const tableBody = document.querySelector('#caminades-table tbody');
+  if (!tableBody) return;
+  tableBody.querySelectorAll('tr').forEach(tr => syncRowSelectedClass(tr));
 }
 
 // Genera els botons i carrega l'any més recent per defecte
